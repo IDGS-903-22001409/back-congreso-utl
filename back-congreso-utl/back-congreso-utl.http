@@ -1,0 +1,6 @@
+@back_congreso_utl_HostAddress = http://localhost:5267
+
+GET {{back_congreso_utl_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
