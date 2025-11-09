@@ -23,7 +23,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 Console.WriteLine($"Connection String: {(string.IsNullOrEmpty(connectionString) ? "EMPTY!" : "Set")}");
 
 builder.Services.AddDbContext<CongresoDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql("postgres://congreso_user:REpG7CSB7DEYwSqDEdlsgLEyzwu5Wgob@dpg-d47tmaur433s739nl2i0-a.oregon-postgres.render.com/congresotic_h59v"));
 
 var app = builder.Build();
 
