@@ -20,9 +20,14 @@ namespace back_congreso_utl.Data
             modelBuilder.Entity<Participante>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                // Removed HasDefaultValueSql for PostgreSQL compatibility
+
+                // 🔹 Asegurar timestamp sin zona horaria y permitir NULL
+                entity.Property(e => e.FechaRegistro)
+                      .HasColumnType("timestamp without time zone")
+                      .IsRequired(false);
             });
 
+            // 🔹 Datos iniciales (sin fechas)
             modelBuilder.Entity<Participante>().HasData(
                 new Participante
                 {
@@ -34,7 +39,7 @@ namespace back_congreso_utl.Data
                     Ocupacion = "Desarrollador de Software",
                     Avatar = "👨‍💻",
                     AceptaTerminos = true,
-                    FechaRegistro = DateTime.Now
+                    FechaRegistro = null
                 },
                 new Participante
                 {
@@ -46,7 +51,7 @@ namespace back_congreso_utl.Data
                     Ocupacion = "Ingeniero Front End",
                     Avatar = "👨‍💼",
                     AceptaTerminos = true,
-                    FechaRegistro = DateTime.Now
+                    FechaRegistro = null
                 },
                 new Participante
                 {
@@ -58,9 +63,10 @@ namespace back_congreso_utl.Data
                     Ocupacion = "Desarrollador Web Full Stack",
                     Avatar = "🧑‍💻",
                     AceptaTerminos = true,
-                    FechaRegistro = DateTime.Now
+                    FechaRegistro = null
                 }
             );
         }
+
     }
 }
