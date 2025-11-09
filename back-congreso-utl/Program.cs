@@ -1,4 +1,3 @@
-// Program.cs - Versión SIN WithOpenApi
 using Microsoft.EntityFrameworkCore;
 using back_congreso_utl.Data;
 using back_congreso_utl.Models;
@@ -24,10 +23,19 @@ builder.Services.AddDbContext<CongresoDbContext>(options =>
 
 var app = builder.Build();
 
+// Auto-create database on startup
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<CongresoDbContext>();
-    db.Database.EnsureCreated(); // Crea las tablas automáticamente
+    try
+    {
+        db.Database.EnsureCreated();
+        Console.WriteLine("Database created successfully");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error creating database: {ex.Message}");
+    }
 }
 
 if (app.Environment.IsDevelopment())
@@ -37,7 +45,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowAll");
-app.UseHttpsRedirection();
 
 app.MapGet("/api/listado", async (CongresoDbContext db, string? q) =>
 {
