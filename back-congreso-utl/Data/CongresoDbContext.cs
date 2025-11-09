@@ -1,4 +1,4 @@
-﻿// CongresoDbContext.cs - REEMPLAZAR TODO
+﻿// Data/CongresoDbContext.cs
 using Microsoft.EntityFrameworkCore;
 using back_congreso_utl.Models;
 
@@ -20,7 +20,7 @@ namespace back_congreso_utl.Data
             modelBuilder.Entity<Participante>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.FechaRegistro).HasDefaultValueSql("GETDATE()");
+                // Removed HasDefaultValueSql for PostgreSQL compatibility
             });
 
             modelBuilder.Entity<Participante>().HasData(

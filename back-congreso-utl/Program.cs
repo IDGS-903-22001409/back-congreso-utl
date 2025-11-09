@@ -24,6 +24,12 @@ builder.Services.AddDbContext<CongresoDbContext>(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<CongresoDbContext>();
+    db.Database.EnsureCreated(); // Crea las tablas automáticamente
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
