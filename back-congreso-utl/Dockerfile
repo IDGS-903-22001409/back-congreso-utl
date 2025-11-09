@@ -2,10 +2,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY *.csproj ./
-RUN dotnet restore
+COPY back-congreso-utl/back-congreso-utl.csproj ./back-congreso-utl/
+RUN dotnet restore "back-congreso-utl/back-congreso-utl.csproj"
 
 COPY . .
+WORKDIR /src/back-congreso-utl
 RUN dotnet publish -c Release -o /app/publish
 
 # Etapa final: imagen ligera
