@@ -2,14 +2,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY back-congreso-utl/back-congreso-utl.csproj ./back-congreso-utl/
-RUN dotnet restore "back-congreso-utl/back-congreso-utl.csproj"
+# Copiamos el archivo .csproj
+COPY *.csproj ./
+RUN dotnet restore
 
+# Copiamos el resto del código y compilamos
 COPY . .
-WORKDIR /src/back-congreso-utl
 RUN dotnet publish -c Release -o /app/publish
 
-# Etapa final: imagen ligera
+# Etapa final: imagen ligera para producción
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
