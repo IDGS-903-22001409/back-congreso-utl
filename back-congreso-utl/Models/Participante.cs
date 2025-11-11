@@ -28,7 +28,7 @@ namespace back_congreso_utl.Models
         public bool AceptaTerminos { get; set; }
 
         [Column(TypeName = "timestamp without time zone")]
-        public DateTime? FechaRegistro { get; set; } = DateTime.UtcNow;
+        public DateTime? FechaRegistro { get; set; } = DateTime.Now;
 
     }
 }
