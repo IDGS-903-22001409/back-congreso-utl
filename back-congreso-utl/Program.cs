@@ -77,7 +77,7 @@ app.MapPost("/api/registro", async (Participante p, CongresoDbContext db) =>
 {
     try
     {
-        p.FechaRegistro = DateTime.UtcNow;
+        p.FechaRegistro = DateTime.Now;
         db.Participantes.Add(p);
         await db.SaveChangesAsync();
         return Results.Created($"/api/participante/{p.Id}", p);
